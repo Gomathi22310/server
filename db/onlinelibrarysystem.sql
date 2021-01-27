@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS `OnlineLibrarySystem`.`Book` (
   `Title` VARCHAR(100) NOT NULL,
   `Author` VARCHAR(100) NOT NULL,
   `ISBN` VARCHAR(45) NULL,
-  PRIMARY KEY (`Id`))
+  PRIMARY KEY (`Id`),
+  UNIQUE INDEX `uq_Book_BookNo_idx` (`BookNo` ASC))
 ENGINE = InnoDB;
 
 
@@ -60,8 +61,8 @@ CREATE TABLE IF NOT EXISTS `OnlineLibrarySystem`.`Reservation` (
   `Book_Id` INT NOT NULL,
   `Student_Id` INT NOT NULL,
   PRIMARY KEY (`Id`),
-  INDEX `fk_Reservation_Book1_idx` (`Book_Id` ASC) VISIBLE,
-  INDEX `fk_Reservation_Student1_idx` (`Student_Id` ASC) VISIBLE,
+  INDEX `fk_Reservation_Book1_idx` (`Book_Id` ASC),
+  INDEX `fk_Reservation_Student1_idx` (`Student_Id` ASC),
   CONSTRAINT `fk_Reservation_Book1`
     FOREIGN KEY (`Book_Id`)
     REFERENCES `OnlineLibrarySystem`.`Book` (`Id`)
