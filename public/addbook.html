@@ -7,8 +7,41 @@
 			}
 		</style>
 		<script>
-			function onAddBook() {
-				alert("onAddBook");
+			function clearFields() {
+				document.getElementById("bookNo").value = "";
+				document.getElementById("edition").value = "";
+				document.getElementById("title").value = "";
+				document.getElementById("author").value = "";
+				document.getElementById("isbn").value = "";
+				document.getElementById("statusMsg").innerHTML = "";
+			}
+			async function onAddBook() {
+				const bookNo = document.getElementById("bookNo").value;
+				const edition = document.getElementById("edition").value;
+				const title = document.getElementById("title").value;
+				const author = document.getElementById("author").value;
+				const isbn = document.getElementById("isbn").value;
+				const data = {
+					bookNo: bookNo,
+					edition: edition,
+					title: title,
+					author: author,
+					isbn: isbn
+				};
+				const response = await fetch("/book", {
+					method: "post", 
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+				clearFields();
+				const msg = await response.text();
+				if(response.status === 200) {
+					document.getElementById("statusMsg").innerHTML = "Book added successfully: " + msg;
+				} else {
+					document.getElementById("statusMsg").innerHTML = "Adding book failed: " + msg;
+				}
 			}
 		</script>
 	</head>
@@ -16,7 +49,7 @@
 		<p align="center" style="color:black;font-family:Times New Roman;font-style:bold;font-size:50px;">Holy Cross Home Science College
 		<p align="center" style="color:black;font-family:Times New Roman;font-style:bold;font-size:30px;">Online Library System
 		<br><br>
-		<form action="/book" method="post">
+		<form>
 			<label for="bookNo">Book Number:</label>
 			<input type="text" id="bookNo" name="bookNo" /><br><br>
 			<label for="edition">Edition</label>
@@ -27,7 +60,8 @@
 			<input type="text" id="author" name="author" /><br><br>
 			<label for="isbn">ISBN:</label>
 			<input type="text" id="isbn" name="isbn" /><br><br>
-			<button id="addBookBtn" type='submit'>Add Book</button>
+			<button id="addBookBtn" type='button' onclick="onAddBook();">Add Book</button>
+			<label id="statusMsg"></label>
 		</form>
 		<br><br>
 	</body>
