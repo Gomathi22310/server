@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<title>Online Library System</title>
+		<style>
+			body  {
+				background-size:cover
+			}
+		</style>
+		<script>
+			function onAddBook() {
+				alert("onAddBook");
+			}
+		</script>
+	</head>
+	<body>
+		<p align="center" style="color:black;font-family:Times New Roman;font-style:bold;font-size:50px;">Holy Cross Home Science College
+		<p align="center" style="color:black;font-family:Times New Roman;font-style:bold;font-size:30px;">Online Library System
+		<br><br>
+		<form action="/book" method="post">
+			<label for="bookNo">Book Number:</label>
+			<input type="text" id="bookNo" name="bookNo" /><br><br>
+			<label for="edition">Edition</label>
+			<input type="text" id="edition" name="edition" /><br><br>
+			<label for="title">Title:</label>
+			<input type="text" id="title" name="title" /><br><br>
+			<label for="author">Author:</label>
+			<input type="text" id="author" name="author" /><br><br>
+			<label for="isbn">ISBN:</label>
+			<input type="text" id="isbn" name="isbn" /><br><br>
+			<button id="addBookBtn" type='submit'>Add Book</button>
+		</form>
+		<br><br>
+	</body>
+</html>
