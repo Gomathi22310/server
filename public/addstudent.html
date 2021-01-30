@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<title>Online Library System</title>
+		<style>
+			body  {
+				background-size:cover
+			}
+		</style>
+		<script>
+			function clearFields() {
+				document.getElementById("studentNum").value="";
+				document.getElementById("name").value="";
+				document.getElementById("mobileNum").value="";
+				document.getElementById("emailId").value="";
+				document.getElementById("addline1").value="";
+				document.getElementById("addline2").value="";
+				document.getElementById("city").value="";
+				document.getElementById("state").value="";
+				document.getElementById("pincode").value="";
+				document.getElementById("country").value="";
+				document.getElementById("alternateMob").value="";
+			}
+			async function onAddStudent() {
+				const studentNum=document.getElementById("studentNum").value;
+				const name=document.getElementById("name").value;
+				const mobileNum=document.getElementById("mobileNum").value;
+				const emailId=document.getElementById("emailId").value;
+				const addline1=document.getElementById("addline1").value;
+				const addline2=document.getElementById("addline2").value;
+				const city=document.getElementById("city").value;
+				const state=document.getElementById("state").value;
+				const pincode=document.getElementById("pincode").value;
+				const country=document.getElementById("country").value;
+				const alternateMob=document.getElementById("alternateMob").value;
+				const data = {
+					studentNum: studentNum,
+					name: name,
+					mobileNum: mobileNum,
+					emailId: emailId,
+					addressLine1: addline1,
+					addressLine2: addline2,
+					city: city,
+					state: state,
+					pincode: pincode,
+					country: country,
+					alternateMobile: alternateMob	
+				};
+				const response = await fetch("/student", {
+					method: "post", 
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+				clearFields();
+				const msg = await response.text();
+				if(response.status === 200) {
+					document.getElementById("statusMsg").innerHTML = "Student added successfully: " + msg;
+				} else {
+					document.getElementById("statusMsg").innerHTML = "Adding student failed: " + msg;
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<p align="center" style="color:black;font-family:Times New Roman;font-style:bold;font-size:50px;">Holy Cross Home Science College
+		<p align="center" style="color:black;font-family:Times New Roman;font-style:bold;font-size:30px;">Online Library System
+		<br><br>
+		<form>
+			<label for="studentNum">Student Number:</label>
+			<input type="text" id="studentNum" name="StudentNum" /><br><br>
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" /><br><br>
+			<label for="mobileNum">MobileNumber:</label>
+			<input type="text" id="mobileNum" name="mobileNum" /><br><br>
+			<label for="emailId">EmailID:</label>
+			<input type="text" id="emailId" name="EmailId" /><br><br>
+			<label for="addline1">AddressLine1:</label>
+			<input type="text" id="addline1" name="addline1" /><br><br>
+			<label for="addline2">AddressLine2:</label>
+			<input type="text" id="addline2" name="addline2" /><br><br>
+			<label for="city">City:</label>
+			<input type="text" id="city" name="city" /><br><br>
+			<label for="state">State:</label>
+			<input type="text" id="state" name="state" /><br><br>
+			<label for="pincode">Pincode:</label>
+			<input type="text" id="pincode" name="pincode" /><br><br>
+			<label for="country">Country:</label>
+			<input type="text" id="country" name="country" /><br><br>
+			<label for="alternateMob">AlternateMobileNumber:</label>
+			<input type="text" id="alternateMob" name="alternateMob" /><br><br>
+			
+			
+			<button id="addStudentBtn" type='button' onclick="onAddStudent();">Add Student</button>
+			<label id="statusMsg"></label>
+		</form>
+		<br><br>
+	</body>
+</html>
