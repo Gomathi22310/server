@@ -7,6 +7,16 @@
 			}
 		</style>
 		<script>
+			async function onSearch() {
+				const searchBy = document.getElementById("searchBy").value;
+				const searchTerm = document.getElementById("searchTerm").value;
+				const response = await fetch("/book?" + new URLSearchParams({
+					searchBy: searchBy,
+					searchTerm: searchTerm,
+				}));
+				const bookList = await response.text();
+				console.log(bookList);
+			}
 			function onReserve() {
 				alert("ReserveClick");
 			}
@@ -22,9 +32,23 @@
     			<option value="Author">Author</option>
     			<option value="ISBN">ISBN</option>
   		</select>
-		
  		<input type="text" id="searchTerm" name="searchTerm">
 		<button id="searchBtn" type='button' onclick='onSearch();'>Go</button><br><br>
+		<h3>List of Books</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Book Number</th>
+					<th>Title</th>
+					<th>Edition</th>
+					<th>Author</th>
+					<th>ISBN</th>
+				</tr>
+			</thead>
+			<tbody id="bookList">
+			</tbody>
+
+		</table>
 		<button id="reserveBtn" type='button' onclick='onReserve();'>Reserve </button>
 		<br><br>
 	</body>
