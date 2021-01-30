@@ -7,8 +7,9 @@
 			}
 		</style>
 		<script>
-			function onReserve() {
-				alert("ReserveClick");
+			function onAddStudent() {
+				window.location.replace('addstudent.html');
+				return false;
 			}
 		</script>
 	</head>
@@ -18,14 +19,12 @@
 		<br><br>
 		<label for="searchBy">Search By:</label>
   		<select name="searchBy" id="searchBy">
-    			<option value="Title">Title</option>
-    			<option value="Author">Author</option>
-    			<option value="ISBN">ISBN</option>
+    			<option value="Student no">Student no</option>
+    			<option value="Name">Name</option>
   		</select>
-		
  		<input type="text" id="searchTerm" name="searchTerm">
 		<button id="searchBtn" type='button' onclick='onSearch();'>Go</button><br><br>
-		<button id="reserveBtn" type='button' onclick='onReserve();'>Reserve </button>
+		<button id="addStudentBtn" type='button' onclick='onAddStudent();'>Add Student</button>
 		<br><br>
 	</body>
 </html>
