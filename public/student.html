@@ -14,8 +14,15 @@
 					searchBy: searchBy,
 					searchTerm: searchTerm,
 				}));
-				const bookList = await response.text();
-				console.log(bookList);
+				const bookList = JSON.parse(await response.text());
+				const tbody = document.getElementById("bookList");
+				var html = "";
+				bookList.forEach((book, index, array) => {
+					console.log(book.Title);
+					html = `${html}<tr><td>${book.BookNo}</td><td>${book.Title}</td><td>${book.Edition}</td><td>${book.Author}</td><td>${book.ISBN}</td></tr>`
+				});
+				console.log(html);
+				tbody.innerHTML = html;
 			}
 			function onReserve() {
 				alert("ReserveClick");
