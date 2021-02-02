@@ -19,13 +19,30 @@
 				var html = "";
 				bookList.forEach((book, index, array) => {
 					console.log(book.Title);
-					html = `${html}<tr><td>${book.BookNo}</td><td>${book.Title}</td><td>${book.Edition}</td><td>${book.Author}</td><td>${book.ISBN}</td></tr>`
+					html = `${html}<tr><td>${book.BookNo}</td><td>${book.Title}</td><td>${book.Edition}</td><td>${book.Author}</td><td>${book.ISBN}</td><td>${book.AvailableFrom}</td><td><input type="text" id="duration${book.Id}"></input></td><td><button type="button" onclick="onReserve(1, '${book.Id}', '${book.AvailableFrom}');">Reserve</button></td></tr>`
 				});
 				console.log(html);
 				tbody.innerHTML = html;
 			}
-			function onReserve() {
-				alert("ReserveClick");
+	
+			async function onReserve(studentId, bookId, startDate) {
+				alert(`ReserveClick: ${studentId}, ${bookId} duration${bookId} ${startDate}`);
+				const duration = document.getElementById(`duration${bookId}`).value;
+				const data = {
+					studentId: studentId,
+					bookId: bookId,
+					startDate: startDate,
+					duration: duration
+				}
+				const response = await fetch("/reservation", {
+					method: "post", 
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+				const msg = await response.text();
+				alert(msg);
 			}
 		</script>
 	</head>
@@ -50,6 +67,9 @@
 					<th>Edition</th>
 					<th>Author</th>
 					<th>ISBN</th>
+					<th>Available From</th>
+					<th>Duration</th>
+					<th>Reserve</th>
 				</tr>
 			</thead>
 			<tbody id="bookList">
