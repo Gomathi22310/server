@@ -7,6 +7,23 @@
 			}
 		</style>
 		<script>
+			async function onSearch() {
+				const searchBy = document.getElementById("searchBy").value;
+				const searchTerm = document.getElementById("searchTerm").value;
+				const response = await fetch("/book?" + new URLSearchParams({
+					searchBy: searchBy,
+					searchTerm: searchTerm,
+				}));
+				const bookList = JSON.parse(await response.text());
+				const tbody = document.getElementById("bookList");
+				var html = "";
+				bookList.forEach((book, index, array) => {
+					console.log(book.Title);
+					html = `${html}<tr><td>${book.BookNo}</td><td>${book.Title}</td><td>${book.Edition}</td><td>${book.Author}</td><td>${book.ISBN}</td></tr>`
+				});
+				console.log(html);
+				tbody.innerHTML = html;
+			}
 			function onAddBook() {
 				window.location.replace('addbook.html');
 				return false;
@@ -25,6 +42,21 @@
   		</select>
  		<input type="text" id="searchTerm" name="searchTerm">
 		<button id="searchBtn" type='button' onclick='onSearch();'>Go</button><br><br>
+		<h3>List of Books</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Book Number</th>
+					<th>Title</th>
+					<th>Edition</th>
+					<th>Author</th>
+					<th>ISBN</th>
+				</tr>
+			</thead>
+			<tbody id="bookList">
+			</tbody>
+
+		</table>
 		<button id="addBookBtn" type='button' onclick='onAddBook();'>Add Book</button>
 		<br><br>
 	</body>

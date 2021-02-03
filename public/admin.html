@@ -7,6 +7,23 @@
 			}
 		</style>
 		<script>
+			async function onSearch() {
+				const searchBy = document.getElementById("searchBy").value;
+				const searchTerm = document.getElementById("searchTerm").value;
+				const response = await fetch("/student?" + new URLSearchParams({
+					searchBy: searchBy,
+					searchTerm: searchTerm,
+				}));
+				const studentList = JSON.parse(await response.text());
+				const tbody = document.getElementById("studentList");
+				var html = "";
+				studentList.forEach((student, index, array) => {
+					console.log(student);	
+					html = `${html}<tr><td>${student.StudentNum}</td><td>${student.Name}</td><td>${student.MobileNum}</td><td>${student.EmailId}</td><td>${student.AddressLine1}</td><td>${student.AddressLine2}</td><td>${student.City}</td><td>${student.State}</td><td>${student.Pincode}</td><td>${student.Country}</td><td>${student.AlternateMobile}</td></tr>`
+				});
+				console.log(html);
+				tbody.innerHTML = html;
+			}
 			function onAddStudent() {
 				window.location.replace('addstudent.html');
 				return false;
@@ -19,11 +36,31 @@
 		<br><br>
 		<label for="searchBy">Search By:</label>
   		<select name="searchBy" id="searchBy">
-    			<option value="Student no">Student no</option>
+    			<option value="StudentNum">Student Number</option>
     			<option value="Name">Name</option>
   		</select>
  		<input type="text" id="searchTerm" name="searchTerm">
 		<button id="searchBtn" type='button' onclick='onSearch();'>Go</button><br><br>
+		<h3>List of Students</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Student Num</th>
+					<th>Name</th>
+					<th>Mobile Num</th>
+					<th>EmailId</th>
+					<th>AddressLine1</th>
+					<th>AddressLine2</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Pincode</th>
+					<th>Country</th>
+					<th>AlternateMobile</th
+				</tr>
+			</thead>
+			<tbody id="studentList">
+			</tbody>
+		</table>
 		<button id="addStudentBtn" type='button' onclick='onAddStudent();'>Add Student</button>
 		<br><br>
 	</body>
