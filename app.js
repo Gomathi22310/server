@@ -95,11 +95,9 @@ app.post('/student', (req, res) => {
 app.post('/reservation', (req, res) => {
 	const data = req.body;
 	console.log(data);
-	res.status(200).json({});
-	/****
 	// create the connection to database
 	const connection = getConnection();
-	connection.query('INSERT INTO onlinelibrarysystem.student (StudentNum, Name, MobileNum, EmailId,City,State,Pincode,Country,AddressLine1,AddressLine2,AlternateMobile) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [data.studentNum,data.name, data.mobileNum, data.emailId,data.city,data.state,data.pincode,data.country,data.addressLine1,data.addressLine2,data.alternateMobile], function(err, results, fields) {
+	connection.query('INSERT INTO onlinelibrarysystem.reservation (StartDate, Duration, Status, Book_Id, Student_Id) VALUES (?, ?, ?, ?, ?)', [data.startDate,data.duration, 'RESERVED', data.bookId, data.studentId], function(err, results, fields) {
 	if(err) {
 		console.log(err);
 		res.status(500).json(err);
@@ -107,9 +105,8 @@ app.post('/reservation', (req, res) => {
 	}
 	console.log(results.insertId);
 	const id = results.insertId
-	res.status(200).json({});
+	res.status(200).json({id: id});
   });
-	**/
 })
 
 
