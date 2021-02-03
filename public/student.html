@@ -28,6 +28,8 @@
 			async function onReserve(studentId, bookId, startDate) {
 				alert(`ReserveClick: ${studentId}, ${bookId} duration${bookId} ${startDate}`);
 				const duration = document.getElementById(`duration${bookId}`).value;
+				const date = new Date(startDate);
+				startDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 				const data = {
 					studentId: studentId,
 					bookId: bookId,
